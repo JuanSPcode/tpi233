@@ -18,11 +18,17 @@ class ProductosFactory extends Factory
      */
     public function definition(): array
     {
+        $categoria = Categorias::all();
+        $proveedor = Proveedores::all();
         return [
-            "nombre"=>$this->faker->name(),
-            "precio"=>$this->faker->numberBetween(1, 10),
-            "idcategoria"=>Categorias::inRandomOrder()->value("id"),
-            "idproveedor"=>Proveedores::inRandomOrder()->value("id"),
+            "nombre"=> fake()->name(),
+            "precio"=> fake()->numberBetween(1, 10),
+            "idcategoria"=>$categoria->random()->id,
+            "idproveedor"=>$proveedor->random()->id
         ];
+        /**
+         * 
+         "nombre", 'precio', 'idcategoria', 'idproveedor']
+         */
     }
 }

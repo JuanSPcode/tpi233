@@ -12,7 +12,7 @@ class ProveedoresController extends Controller
      */
     public function index()
     {
-        //
+        return view("proveedor.index",["data"=>Proveedores::all()]);
     }
 
     /**
@@ -20,7 +20,7 @@ class ProveedoresController extends Controller
      */
     public function create()
     {
-        //
+        return view("proveedor.create");
     }
 
     /**
@@ -28,13 +28,17 @@ class ProveedoresController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "nombreproveedor"=>"required|max:100"
+        ]);
+        Proveedores::create($request->all());
+        return redirect()->route("proveedor.index");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Proveedores $proveedores)
+    public function show(Proveedores $proveedor)
     {
         //
     }
@@ -42,24 +46,29 @@ class ProveedoresController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Proveedores $proveedores)
+    public function edit(Proveedores $proveedor)
     {
-        //
+        return view("proveedor.edit", ["proveedor" => $proveedor]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Proveedores $proveedores)
+    public function update(Request $request, Proveedores $proveedor)
     {
-        //
+        $request->validate([
+            "nombreproveedor"=>"required|max:100"
+        ]);
+        $proveedor->update($request->all());
+        return redirect()->route("proveedor.index");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Proveedores $proveedores)
+    public function destroy(Proveedores $proveedor)
     {
-        //
+        $proveedor->delete();
+        return redirect()->route("proveedor.index");
     }
 }

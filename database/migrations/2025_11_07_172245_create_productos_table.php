@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre', 500);
             $table->decimal('precio', 10,2);
-            $table->foreign('idcategoria')->references('categoria')->onDelete("restric");
-            $table->foreign('idproveedor')->references('provedor')->onDelete('restric');
+            $table->foreignId('idcategoria')->constrained('categorias');
+            $table->foreignId('idproveedor')->constrained('proveedor');
             $table->timestamps();
         });
     }

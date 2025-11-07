@@ -20,7 +20,7 @@ class CategoriasController extends Controller
      */
     public function create()
     {
-        return view("categorias.edit");
+        return view("categoria.create");
     }
 
     /**
@@ -29,13 +29,16 @@ class CategoriasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "nombrecategoria"=>"require"]); 
+            "nombrecategoria"=>"required|max:100"
+        ]);
+        Categorias::create($request->all());
+        return redirect()->route("categoria.index");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Categorias $categorias)
+    public function show(Categorias $categoria)
     {
         //
     }
@@ -43,24 +46,29 @@ class CategoriasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categorias $categorias)
+    public function edit(Categorias $categoria)
     {
-        //
+        return view("categoria.edit", ["categoria" => $categoria]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Categorias $categorias)
+    public function update(Request $request, Categorias $categoria)
     {
-        //
+        $request->validate([
+            "nombrecategoria"=>"required|max:100"
+        ]);
+        $categoria->update($request->all());
+        return redirect()->route("categoria.index");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categorias $categorias)
+    public function destroy(Categorias $categoria)
     {
-        //
+        $categoria->delete();
+        return redirect()->route("categoria.index");
     }
 }

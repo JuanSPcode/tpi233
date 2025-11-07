@@ -10,14 +10,14 @@ class Productos extends Model
     /** @use HasFactory<\Database\Factories\ProductosFactory> */
     use HasFactory;
 
-    protected $table = "";
+    protected $table = "productos";
     protected $fillable = ["nombre", 'precio', 'idcategoria', 'idproveedor'];
 
     public function categoria(){
-        return $this->hasMany('categoria', "idcategoria");
+        return $this->belongsTo('categorias', Categorias::class);
     }
 
     public function proveedor(){
-        return $this->hasMany('proveedor', "idproveedor");
+        return $this->belongsTo('proveedor', Proveedores::class);
     }
 }
